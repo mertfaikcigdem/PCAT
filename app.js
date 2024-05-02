@@ -3,6 +3,13 @@ const ejs = require('ejs');
 const app = express();
 const port = 3000;
 const path = require('path');
+const mongoose = require('mongoose');
+
+// models
+const Photo = require('./models/Photo');
+
+// connect db
+mongoose.connect('mongodb://localhost/pcat-test-db');
 
 app.set('view engine', 'ejs');
 
@@ -12,26 +19,28 @@ const myLogger = (req, res, next) => {
 };
 app.use(express.static('public'));
 app.use(myLogger);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  /* const photo = {
-    id: 1,
-    name: "Blog Title",
-    description: "Blog description"
-  };
-  res.send(photo); */
-  /* res.sendFile(path.resolve(__dirname, 'temp/index.html')); */
-  res.render('index');
+app.get('/', async (req, res) => {
+  const photos = await Photo.find({});
+  res.render('index', {
+    photos,
+  });
 });
 
 app.get('/about', (req, res) => {
   res.render('about');
 });
-app.get('/contact', (req, res) => {
-  res.render('contact');
+app.get('/add', (req, res) => {
+  res.render('add');
 });
 app.get('/video-page', (req, res) => {
   res.render('video-page');
+});
+app.post('/photos', async (req, res) => {
+  await Photo.create(req.body);
+  res.redirect('/');
 });
 
 app.listen(port, () => {
