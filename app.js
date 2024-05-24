@@ -35,8 +35,17 @@ app.get('/about', (req, res) => {
 app.get('/add', (req, res) => {
   res.render('add');
 });
-app.get('/video-page', (req, res) => {
-  res.render('video-page');
+app.get('/photo/:id', async (req, res) => {
+  const photo = await Photo.findById(req?.params?.id);
+  res.render('photo', {
+    photo
+  });
+});
+app.get('/post/:id', async (req, res) => {
+  const post = await Photo.findById(req?.params?.id);
+  res.render('post', {
+    post
+  });
 });
 app.post('/photos', async (req, res) => {
   await Photo.create(req.body);
