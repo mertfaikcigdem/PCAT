@@ -9,7 +9,7 @@
                         <div class="col-7 col-md-4">
                             <a href="/" class="tm-bg-black text-center tm-logo-container">
                                 <i class="fas fa-video tm-site-logo mb-3"></i>
-                                <h1 class="tm-site-name">Video Catalog</h1>
+                                <h1 class="tm-site-name">PCAT</h1>
                             </a>
                         </div>
                         <%- include('partials/_navigation') -%>
@@ -43,7 +43,7 @@
                         <% for (let i = 0; i < photos.length; i++) { %>
                             <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
                                 <div class="position-relative tm-thumbnail-container">
-                                    <img src="img/tn-01.jpg" alt="Image" class="img-fluid tm-catalog-item-img">    
+                                    <img src="<%= photos[i].image %>" alt="Image" class="img-fluid tm-catalog-item-img">    
                                     <a href="/photo/<%= photos[i]._id %>" class="position-absolute tm-img-overlay">
                                         <i class="fas fa-play tm-overlay-icon"></i>
                                     </a>
