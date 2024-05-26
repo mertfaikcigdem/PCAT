@@ -1,7 +1,7 @@
 const express = require('express');
 const ejs = require('ejs');
 const app = express();
-const port = 3000;
+const port = process?.env?.PORT || 3000;
 const path = require('path');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
@@ -12,7 +12,12 @@ const photoControllers = require('./controllers/photoControllers');
 const pageControllers = require('./controllers/pageControllers');
 
 // connect db
-mongoose.connect('mongodb://localhost/pcat-test-db');
+mongoose.connect('mongodb+srv://mertfaikcigdem:mbgZ7Zubs07zyXpb@cluster0.irpfyrq.mongodb.net/pcat-db?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => {
+  console.log('db connected!');
+}).catch((err) => {
+  console.log(err);
+});
 
 // template engine
 app.set('view engine', 'ejs');
